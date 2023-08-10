@@ -25,9 +25,9 @@ dependencyResolutionManagement {
 rootProject.name = "compose-richeditor"
 
 include(
-//    ":sample:android",
-//    ":sample:desktop",
-//    ":sample:web",
-//    ":sample:common",
+    ":sample:android",
+    ":sample:desktop",
+    ":sample:web",
+    ":sample:common",
     ":richeditor-compose"
 )
