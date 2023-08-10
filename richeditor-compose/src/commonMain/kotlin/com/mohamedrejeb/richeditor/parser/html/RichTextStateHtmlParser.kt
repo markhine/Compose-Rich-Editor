@@ -11,7 +11,7 @@ import com.mohamedrejeb.richeditor.utils.customMerge
 import com.mohamedrejeb.richeditor.utils.fastForEach
 import com.mohamedrejeb.richeditor.utils.fastForEachIndexed
 
-internal object RichTextStateHtmlParser : RichTextStateParser<String> {
+open class RichTextStateHtmlParser : RichTextStateParser<String> {
 
     override fun encode(input: String): RichTextState {
         val openedTags = mutableListOf<Pair<String, Map<String, String>>>()
@@ -299,7 +299,7 @@ internal object RichTextStateHtmlParser : RichTextStateParser<String> {
      *
      * @see <a href="https://www.w3schools.com/html/html_formatting.asp">HTML formatting</a>
      */
-    private val htmlElementsSpanStyleDecodeMap = mapOf(
+    internal val htmlElementsSpanStyleDecodeMap = mapOf(
         BoldSpanStyle to "b",
         ItalicSpanStyle to "i",
         UnderlineSpanStyle to "u",
@@ -365,7 +365,7 @@ internal object RichTextStateHtmlParser : RichTextStateParser<String> {
     /**
      * Decodes HTML elements from [RichParagraph.Type].
      */
-    private fun decodeHtmlElementFromRichParagraphType(
+    internal fun decodeHtmlElementFromRichParagraphType(
         richParagraphType: RichParagraph.Type,
     ): String {
         return when (richParagraphType) {

@@ -15,6 +15,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
 import com.mohamedrejeb.richeditor.annotation.ExperimentalRichTextApi
 import com.mohamedrejeb.richeditor.model.RichParagraph.Type.Companion.startText
+import com.mohamedrejeb.richeditor.parser.html.RichTextStateBasicHtmlParser
 import com.mohamedrejeb.richeditor.parser.html.RichTextStateHtmlParser
 import com.mohamedrejeb.richeditor.parser.markdown.RichTextStateMarkdownParser
 import com.mohamedrejeb.richeditor.utils.*
@@ -37,6 +38,7 @@ class RichTextState internal constructor(
 ) {
     constructor(): this(listOf(RichParagraph()))
 
+    private val richTextStateParser = RichTextStateHtmlParser()
     internal val richParagraphList = mutableStateListOf<RichParagraph>()
     internal var visualTransformation: VisualTransformation by mutableStateOf(VisualTransformation.None)
     internal var textFieldValue by mutableStateOf(TextFieldValue())
@@ -2012,7 +2014,7 @@ class RichTextState internal constructor(
      * @param html The html to update the [RichTextState] with.
      */
     fun setHtml(html: String) {
-        val richParagraphList = RichTextStateHtmlParser.encode(html).richParagraphList
+        val richParagraphList = richTextStateParser.encode(html).richParagraphList
         updateRichParagraphList(richParagraphList)
     }
 
@@ -2109,7 +2111,16 @@ class RichTextState internal constructor(
      * @return The html string.
      */
     fun toHtml(): String {
-        return RichTextStateHtmlParser.decode(this)
+        return richTextStateParser.decode(this)
+    }
+
+    /**
+     * Decodes the [RichTextState] to a basic html string.
+     *
+     * @return The html string.
+     */
+    fun toBasicHtml(): String {
+        return RichTextStateBasicHtmlParser.decode(this)
     }
 
     /**
