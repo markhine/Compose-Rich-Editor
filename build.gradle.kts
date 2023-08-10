@@ -78,20 +78,20 @@ allprojects {
         }
     }
 
-    val publishing = extensions.getByType<PublishingExtension>()
-    extensions.configure<SigningExtension> {
-        useInMemoryPgpKeys(
-            System.getenv("SigningKeyId"),
-            System.getenv("SigningKey"),
-            System.getenv("SigningPassword"),
-        )
-
-        sign(publishing.publications)
-    }
-
-    // TODO: remove after https://youtrack.jetbrains.com/issue/KT-46466 is fixed
-    project.tasks.withType(AbstractPublishToMaven::class.java).configureEach {
-        dependsOn(project.tasks.withType(Sign::class.java))
-    }
+//    val publishing = extensions.getByType<PublishingExtension>()
+//    extensions.configure<SigningExtension> {
+//        useInMemoryPgpKeys(
+//            System.getenv("SigningKeyId"),
+//            System.getenv("SigningKey"),
+//            System.getenv("SigningPassword"),
+//        )
+//
+//        sign(publishing.publications)
+//    }
+//
+//    // TODO: remove after https://youtrack.jetbrains.com/issue/KT-46466 is fixed
+//    project.tasks.withType(AbstractPublishToMaven::class.java).configureEach {
+//        dependsOn(project.tasks.withType(Sign::class.java))
+//    }
 
 }
