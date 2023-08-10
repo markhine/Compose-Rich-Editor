@@ -1,5 +1,5 @@
-group = "com.mohamedrejeb.richeditor"
-version = "1.0.0-beta02"
+//group = "com.mohamedrejeb.richeditor"
+//version = "1.0.0-beta02"
 
 plugins {
     alias(libs.plugins.androidLibrary).apply(false)
@@ -18,12 +18,12 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        mavenLocal()
+//        mavenLocal()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 
-    group = "com.mohamedrejeb.richeditor"
-    version = "1.0.0-beta02"
+//    group = "com.mohamedrejeb.richeditor"
+//    version = "1.0.0-beta02"
 
 //    apply(plugin = "org.jetbrains.dokka")
 //    apply(plugin = "maven-publish")
