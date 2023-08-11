@@ -227,18 +227,15 @@ class RichTextState internal constructor(
             handleRemovingStyleFromSelectedText()
     }
 
-    fun addLink(
-        text: String,
-        url: String,
-    ) {
-        if (text.isEmpty()) return
+    fun addLink(link: Link) {
+        if (link.text.isEmpty()) return
 
         val paragraph = richParagraphList.firstOrNull() ?: return
         val linkStyle = RichSpanStyle.Link(
-            url = url,
+            url = link.url,
         )
         val linkRichSpan = RichSpan(
-            text = text,
+            text = link.text,
             style = linkStyle,
             paragraph = paragraph,
         )
@@ -250,13 +247,31 @@ class RichTextState internal constructor(
 
         val beforeText = textFieldValue.text.substring(0, selection.min)
         val afterText = textFieldValue.text.substring(selection.min)
-        val newText = "$beforeText$text$afterText"
+        val newText = "$beforeText${link.text}$afterText"
         updateTextFieldValue(
             newTextFieldValue = textFieldValue.copy(
                 text = newText,
-                selection = TextRange(selection.min + text.length),
+                selection = TextRange(selection.min + link.text.length),
             )
         )
+    }
+
+    /**
+     * Gets a [Link] if the current selection is a link.
+     *
+     * @return [Link] if the current selection is a link, otherwise null.
+     */
+    fun getLink(): Link? {
+        val richSpan = getRichSpanByTextIndex(selection.min)
+        val style = richSpan?.style
+        return if (style is RichSpanStyle.Link) {
+            return Link(
+                text = richSpan.text,
+                url = style.url,
+            )
+        } else {
+            null
+        }
     }
 
     fun toggleCode() {
