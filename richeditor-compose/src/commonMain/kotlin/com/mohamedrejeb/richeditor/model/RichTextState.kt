@@ -256,13 +256,35 @@ class RichTextState internal constructor(
         )
     }
 
+    fun replaceLink(link: Link) {
+        val richSpan = getRichSpanByTextIndex(textIndex = selection.min - 1)
+        if (link.text.isEmpty() || richSpan == null) return
+
+        val beforeTextStartIndex = richSpan.textRange.start
+        val beforeTextEndIndex = richSpan.textRange.end
+        val afterTextEndIndex = beforeTextStartIndex + link.text.length
+        richSpan.text = link.text
+        richSpan.style = RichSpanStyle.Link(url = link.url)
+        richSpan.textRange = TextRange(beforeTextStartIndex, afterTextEndIndex)
+
+        val beforeText = textFieldValue.text.substring(0, beforeTextStartIndex)
+        val afterText = textFieldValue.text.substring(beforeTextEndIndex)
+        val newText = "$beforeText${link.text}$afterText"
+        updateTextFieldValue(
+            newTextFieldValue = textFieldValue.copy(
+                text = newText,
+                selection = TextRange(afterTextEndIndex),
+            )
+        )
+    }
+
     /**
      * Gets a [Link] if the current selection is a link.
      *
      * @return [Link] if the current selection is a link, otherwise null.
      */
     fun getLink(): Link? {
-        val richSpan = getRichSpanByTextIndex(selection.min)
+        val richSpan = getRichSpanByTextIndex(textIndex = selection.min - 1)
         val style = richSpan?.style
         return if (style is RichSpanStyle.Link) {
             return Link(
