@@ -700,7 +700,7 @@ class RichTextEditorColors internal constructor(
      * the text field is in focus or not
      */
     @Composable
-    internal fun leadingIconColor(
+    fun leadingIconColor(
         enabled: Boolean,
         isError: Boolean,
         interactionSource: InteractionSource
@@ -726,7 +726,7 @@ class RichTextEditorColors internal constructor(
      * the text field is in focus or not
      */
     @Composable
-    internal fun trailingIconColor(
+    fun trailingIconColor(
         enabled: Boolean,
         isError: Boolean,
         interactionSource: InteractionSource
@@ -752,7 +752,7 @@ class RichTextEditorColors internal constructor(
      * the text field is in focus or not
      */
     @Composable
-    internal fun indicatorColor(
+    fun indicatorColor(
         enabled: Boolean,
         isError: Boolean,
         interactionSource: InteractionSource
@@ -776,7 +776,7 @@ class RichTextEditorColors internal constructor(
      * Represents the container color for this text field.
      */
     @Composable
-    internal fun containerColor(): State<Color> {
+    fun containerColor(): State<Color> {
         return rememberUpdatedState(containerColor)
     }
 
@@ -786,7 +786,7 @@ class RichTextEditorColors internal constructor(
      * @param enabled whether the text field is enabled
      */
     @Composable
-    internal fun placeholderColor(enabled: Boolean): State<Color> {
+    fun placeholderColor(enabled: Boolean): State<Color> {
         return rememberUpdatedState(if (enabled) placeholderColor else disabledPlaceholderColor)
     }
 
@@ -799,7 +799,7 @@ class RichTextEditorColors internal constructor(
      * the text field is in focus or not
      */
     @Composable
-    internal fun labelColor(
+    fun labelColor(
         enabled: Boolean,
         isError: Boolean,
         interactionSource: InteractionSource
@@ -816,12 +816,12 @@ class RichTextEditorColors internal constructor(
     }
 
     @Composable
-    internal fun textColor(enabled: Boolean): State<Color> {
+    fun textColor(enabled: Boolean): State<Color> {
         return rememberUpdatedState(if (enabled) textColor else disabledTextColor)
     }
 
     @Composable
-    internal fun supportingTextColor(
+    fun supportingTextColor(
         enabled: Boolean,
         isError: Boolean,
         interactionSource: InteractionSource
@@ -844,14 +844,14 @@ class RichTextEditorColors internal constructor(
      * @param isError whether the text field's current value is in error
      */
     @Composable
-    internal fun cursorColor(isError: Boolean): State<Color> {
+    fun cursorColor(isError: Boolean): State<Color> {
         return rememberUpdatedState(if (isError) errorCursorColor else cursorColor)
     }
 
     /**
      * Represents the colors used for text selection in this text field.
      */
-    internal val selectionColors: TextSelectionColors
+    val selectionColors: TextSelectionColors
         @Composable get() = textSelectionColors
 
     override fun equals(other: Any?): Boolean {
